@@ -1,0 +1,9 @@
+POST http://localhost:8080/api/auth/register
+Content-Type: application/json
+
+{
+  "username": "marie",
+  "password": "password"
+}
+
+<> 2024-02-15T150205.200.txt
