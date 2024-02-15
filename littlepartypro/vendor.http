@@ -1,0 +1,75 @@
+### Find All Vendor
+GET http://localhost:8080/api/vendor
+
+<> 2024-01-12T205401.200.json
+
+### Get Vendor by Id
+GET http://localhost:8080/api/vendor/1
+
+<> 2024-01-13T063118.200.json
+
+###
+GET http://localhost:8080/api/vendor/99
+
+<> 2024-01-13T063455.404.json
+
+### Create New Vendor
+POST http://localhost:8080/api/vendor
+Content-Type: application/json
+
+{
+  "title": "Little Play Town",
+  "address": "Heywood",
+  "postcode": "OL10 4NL",
+  "shortDesc": "Packaged party",
+  "longDesc": "",
+  "tierId": "1",
+  "vendorTypeId": "1",
+  "url": "www.littleplaytownheywood.com"
+}
+
+### Update Existing Vendor
+PUT http://localhost:8080/api/vendor/1
+Content-Type: application/json
+
+{
+  "id": 1,
+  "title": "Jolly Giraffes",
+  "address": "Rochdale",
+  "postcode": "OL11 5BX",
+  "shortDesc": "Packaged party",
+  "longDesc": "",
+  "tierId": "1",
+  "vendorTypeId": "3",
+  "url": "https://www.jollygiraffesltd.co.uk"
+}
+
+### Update Existing Vendor With Invalid Id
+PUT http://localhost:8080/api/vendor/99
+Content-Type: application/json
+
+{
+  "id": 1,
+  "title": "Jolly Giraffes",
+  "address": "Rochdale",
+  "shortDesc": "Packaged party",
+  "longDesc": "",
+  "tier": "PAID",
+  "vendorType": "VENUE",
+  "url": "www.jollygiraffes.com"
+}
+
+### Delete By Id
+DELETE http://localhost:8080/api/vendor/7
+Content-Type: application/json
+
+### Filter by Type
+GET http://localhost:8080/api/vendor/filter/vendorType/1
+
+### Search
+POST http://localhost:8080/api/vendor/filter/search
+Content-Type: application/json
+
+{
+  "searchQuery" : "Chill"
+}
