@@ -45,12 +45,12 @@ public class AuthController {
 
     @PostMapping("/register")
     public ResponseEntity<String> register(@RequestBody RegisterDto registerDto) {
-        if (userRepository.existsByUsername(registerDto.getUsername())) {
+        if (userRepository.existsByUsername(registerDto.username())) {
             return new ResponseEntity<>("Username is already taken!", HttpStatus.BAD_REQUEST);
         }
         UserEntity user = new UserEntity();
-        user.setUsername(registerDto.getUsername());
-        user.setPassword(passwordEncoder.encode((registerDto.getPassword())));
+        user.setUsername(registerDto.username());
+        user.setPassword(passwordEncoder.encode((registerDto.password())));
 
         userRepository.save(user);
 
