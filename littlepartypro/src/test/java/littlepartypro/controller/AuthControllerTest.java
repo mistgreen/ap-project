@@ -17,8 +17,10 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -103,5 +105,13 @@ class AuthControllerTest {
         assert expectedResponse.getBody().equals("User signed in successfully");
     }
 
+    @Test
+    void whenLoginWithIncorrectCredentialsShouldBeUnsuccessful(){
+        LoginDto loginDto = new LoginDto("username", "password");
+        when(authenticationManager.authenticate(any())).thenThrow(new BadCredentialsException("User does not exist"));
+        ResponseEntity<String> expectedResponse = new ResponseEntity<>("User does not exist", HttpStatus.UNAUTHORIZED);
+
+        assertEquals(expectedResponse, authController.login(loginDto));
+    }
 
 }

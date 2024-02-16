@@ -5,6 +5,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -30,11 +31,16 @@ public class AuthController {
 
     @PostMapping("/login")
     public ResponseEntity<String> login(@RequestBody LoginDto loginDto) {
-        Authentication authentication = authenticationManager.authenticate((
-            new UsernamePasswordAuthenticationToken(loginDto.username(), loginDto.password())
+        try {
+            Authentication authentication = authenticationManager.authenticate((
+                new UsernamePasswordAuthenticationToken(loginDto.username(), loginDto.password())
             ));
-        SecurityContextHolder.getContext().setAuthentication(authentication);
-        return new ResponseEntity<>("User signed in successfully", HttpStatus.OK);
+            SecurityContextHolder.getContext().setAuthentication(authentication);
+            return new ResponseEntity<>("User signed in successfully", HttpStatus.OK);
+        }
+        catch (AuthenticationException exception){
+            return new ResponseEntity<>("User does not exist", HttpStatus.UNAUTHORIZED) ;
+        }
     }
 
     @PostMapping("/register")
