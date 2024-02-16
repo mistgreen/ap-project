@@ -19,6 +19,10 @@ public class UserEntity {
     private String password;
     private int roleId;
 
+    public UserEntity(String username, String password) {
+        this.username = username;
+        this.password = password;
+    }
 
 
 }

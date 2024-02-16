@@ -33,7 +33,7 @@ public class SecurityConfig {
         return http
             .csrf().disable()
             .authorizeRequests()
-                .requestMatchers("/").permitAll()
+            .requestMatchers("/").permitAll()
             .and()
             .build();
     }
@@ -45,7 +45,7 @@ public class SecurityConfig {
     }
 
     @Bean
-    PasswordEncoder passwordEncoder(){
+    PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 }

@@ -19,6 +19,7 @@ import littlepartypro.repository.UserRepository;
 
 @Service
 public class CustomUserDetailsService implements UserDetailsService {
+
     private UserRepository userRepository;
     private RoleRepository roleRepository;
 
@@ -27,11 +28,13 @@ public class CustomUserDetailsService implements UserDetailsService {
         this.userRepository = userRepository;
         this.roleRepository = roleRepository;
     }
+
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         UserEntity user = userRepository.findByUsername(username).orElseThrow(() -> new UsernameNotFoundException("Username not found"));
         return new User(user.getUsername(), user.getPassword(), getAuthority(user));
-}
+    }
+
     private Collection<? extends GrantedAuthority> getAuthority(UserEntity user) {
         // Fetch the role associated with the user's roleId
         RoleEntity role = roleRepository.findById(user.getRoleId())

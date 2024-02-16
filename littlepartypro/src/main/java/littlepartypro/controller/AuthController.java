@@ -48,9 +48,7 @@ public class AuthController {
         if (userRepository.existsByUsername(registerDto.username())) {
             return new ResponseEntity<>("Username is already taken!", HttpStatus.BAD_REQUEST);
         }
-        UserEntity user = new UserEntity();
-        user.setUsername(registerDto.username());
-        user.setPassword(passwordEncoder.encode((registerDto.password())));
+        UserEntity user = new UserEntity(registerDto.username(), passwordEncoder.encode(registerDto.password()));
 
         userRepository.save(user);
 
