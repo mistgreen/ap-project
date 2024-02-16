@@ -1,9 +1,5 @@
 package littlepartypro.controller;
 
-import java.util.Collections;
-
-
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -20,8 +16,6 @@ import org.springframework.web.bind.annotation.RestController;
 import littlepartypro.dto.LoginDto;
 import littlepartypro.dto.RegisterDto;
 import littlepartypro.model.UserEntity;
-import littlepartypro.model.RoleEntity;
-import littlepartypro.repository.RoleRepository;
 import littlepartypro.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 
@@ -37,7 +31,7 @@ public class AuthController {
     @PostMapping("/login")
     public ResponseEntity<String> login(@RequestBody LoginDto loginDto) {
         Authentication authentication = authenticationManager.authenticate((
-            new UsernamePasswordAuthenticationToken(loginDto.getUsername(), loginDto.getPassword())
+            new UsernamePasswordAuthenticationToken(loginDto.username(), loginDto.password())
             ));
         SecurityContextHolder.getContext().setAuthentication(authentication);
         return new ResponseEntity<>("User signed in successfully", HttpStatus.OK);
