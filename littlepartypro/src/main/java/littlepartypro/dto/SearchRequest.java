@@ -3,6 +3,9 @@ package littlepartypro.dto;
 import java.util.Arrays;
 import java.util.List;
 
+import lombok.Data;
+
+@Data
 public class SearchRequest {
 
     private String searchQuery;
@@ -11,13 +14,6 @@ public class SearchRequest {
         this.searchQuery = searchQuery;
     }
 
-    public String getSearchQuery() {
-        return searchQuery;
-    }
-
-    public void setSearchQuery(final String searchQuery) {
-        this.searchQuery = searchQuery;
-    }
 
     public SearchRequest() {
     }
