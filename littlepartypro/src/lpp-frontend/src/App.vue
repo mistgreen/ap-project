@@ -6,8 +6,6 @@
         <RouterView />
       </div>
       <HeaderComponent/>
-    </div>
-    <div>
       <ResultsComponent />
     </div>
     <div>

@@ -1,5 +1,5 @@
 <template>
-  <div class="max-w-2xl mx-auto">
+  <div class="max-w-2xl mx-auto" :class="{ 'z-0': modalActive }">
     <form class="flex items-center" @submit.prevent="handleSubmit">
       <label for="simple-search" class="sr-only">Search Little Party Pro</label>
       <div class="relative w-full">
@@ -33,7 +33,7 @@
 </template>
 
 <script setup>
-import {defineEmits, ref} from 'vue'
+import {defineEmits, ref, defineProps} from 'vue'
 
 defineEmits('perform-search')
 
@@ -41,6 +41,9 @@ const searchString = ref("")
 const searchResult = ref([]);
 const queryTimeout = ref(null);
 
+defineProps({
+  modalActive: Boolean
+});
 
 function lazySearch() {
   const pattern = /([A-Za-z0-9])\w+/;
@@ -71,3 +74,6 @@ function lazySearch() {
 
 </script>
 
+<style scoped>
+
+</style>
