@@ -3,9 +3,8 @@
     <div class="sticky flex flex-col font-Lato bg-lpp-primary">
       <div>
         <NavComponent/>
-        <RouterView />
       </div>
-      <HeaderComponent/>
+      <HeaderComponent />
       <ResultsComponent />
     </div>
     <div>
@@ -16,13 +15,11 @@
 </template>
 
 <script setup>
-// import { RouterView } from 'vue-router'
 import NavComponent from '@/components/NavComponent.vue'
-// import CardComponent from '@/components/CardComponent.vue'
-// import CategoryComponent from '@/components/CategoryComponent.vue'
 import HeaderComponent from '@/components/HeaderComponent.vue'
 import ResultsComponent from '@/components/ResultsComponent.vue'
 import FooterComponent from '@/components/FooterComponent.vue'
+
 
 
 </script>

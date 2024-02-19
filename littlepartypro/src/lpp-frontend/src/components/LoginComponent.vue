@@ -20,6 +20,13 @@
         Submit
       </ButtonComponent>
 
+      <div v-if="loginResponseStatus === 200">
+        <p>Login successful!</p>
+      </div>
+      <div v-if="loginResponseStatus === 401">
+        <p class="text-red-400">Login failed!</p>
+      </div>
+
     </div>
   </div>
 <!--  class="absolute w-full bg-black bg-opacity-30 h-screen top-0 left-0 flex justify-center px-8"-->
@@ -42,7 +49,8 @@ defineProps({
     type: Boolean,
     default: false,
   },
-  method: String
+  method: String,
+  loginResponseStatus: Number
 })
 
 

@@ -1,13 +1,16 @@
 <template>
     <header class="sticky top-0 bg-lpp-primary shadow-lg">
       <nav class="gap-4 py-6">
-        <RouterLink to="{name: 'home'}">
+
           <div class="flex justify-end">
-            <ButtonComponent class="m-1 min-w-16 max-w-16 flex justify-center" @click="openLoginModal()">
+            <ButtonComponent class="m-1 min-w-16 max-w-16 flex justify-center" @click="openLoginModal()" v-if="!loginSuccessful">
               Login
             </ButtonComponent>
-            <ButtonComponent class="m-1 min-w-16 max-w-16 flex justify-center" @click="openRegisterModal()">
+            <ButtonComponent class="m-1 min-w-16 max-w-16 flex justify-center" @click="openRegisterModal()" v-if="!loginSuccessful">
               Register
+            </ButtonComponent>
+            <ButtonComponent class="m-1 min-w-16 max-w-16 flex justify-center" @click="toggleLogin()" v-if="loginSuccessful">
+              Logout
             </ButtonComponent>
           </div>
           <div>
@@ -15,7 +18,10 @@
               <a href="http://localhost:3000" class="font-Bellaboo text-6xl md:text-8xl text-lpp-text-primary hover:text-lpp-third cursor-pointer">Little Party Pro</a>
             </div>
           </div>
-        </RouterLink>
+        <div v-if="loggedInUsername !== undefined">
+          <p>Welcome, {{loggedInUsername}}!</p>
+        </div>
+
 
 <!--          <i class="fa-regular fa-user text-xl text-lpp-text-primary hover:text-lpp-third cursor-pointer"></i>-->
 
@@ -33,6 +39,7 @@
              @close-modal="toggleModal"
                   :method="modalMethod"
                   @perform-action="performAction"
+                  :login-response-status="loginResponseStatus"
   >
 
   </LoginComponent>
@@ -48,12 +55,23 @@ import {defineProps, ref} from 'vue'
 const modalActive = ref(false);
 const modalMethod = ref();
 const queryTimeout = ref(null);
+const loginResponseStatus = ref();
+const loggedInUsername = ref();
+const loginSuccessful = ref(false);
+
+
 
 defineProps({
-  modalMethod: String
+  modalMethod: String,
+  loginResponseStatus: Number,
+  loggedInUsername: String
 });
 const toggleModal = () => {
   modalActive.value = false;
+};
+const toggleLogin = () => {
+  loginSuccessful.value = false;
+  loggedInUsername.value = undefined;
 };
 
 const openLoginModal = () => {
@@ -71,6 +89,7 @@ function performAction(method, username, password) {
   // searchQuery.value = {
   //   "searchQuery": searchString
   // };
+  loggedInUsername.value = username;
   const user = {
     username: username,
     password: password
@@ -86,11 +105,17 @@ function performAction(method, username, password) {
           'Content-Type': 'application/json'
         }
       }).then(response => {
+        loginResponseStatus.value = response.status;
+        console.log(loginResponseStatus.value)
         if (!response.ok) {
           throw new Error(`HTTP error! Status: ${response.status}`);
         }
         return response.text();
       }).then(data => {
+        loginSuccessful.value = true;
+        setTimeout(() => {
+          toggleModal()
+        }, 5000);
         console.log("login successful:" + data);
       }).catch(error => {
         console.error('Error:', error);
@@ -107,7 +132,7 @@ function performAction(method, username, password) {
         if (!response.ok) {
           throw new Error(`HTTP error! Status: ${response.status}`);
         }
-        return response.json();
+        return response.text();
       }).then(data => {
         console.log("registration successful:" + data);
       }).catch(error => {
