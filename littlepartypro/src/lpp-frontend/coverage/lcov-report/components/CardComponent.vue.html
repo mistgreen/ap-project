@@ -3,7 +3,7 @@
 <html lang="en">
 
 <head>
-    <title>Code coverage report for components/BaseModal.vue</title>
+    <title>Code coverage report for components/CardComponent.vue</title>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="../prettify.css" />
     <link rel="stylesheet" href="../base.css" />
@@ -19,34 +19,34 @@
 <body>
 <div class='wrapper'>
     <div class='pad1'>
-        <h1><a href="../index.html">All files</a> / <a href="index.html">components</a> BaseModal.vue</h1>
+        <h1><a href="../index.html">All files</a> / <a href="index.html">components</a> CardComponent.vue</h1>
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">81.25% </span>
+                <span class="strong">94.73% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>13/16</span>
+                <span class='fraction'>18/19</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/4</span>
+                <span class='fraction'>4/4</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">66.66% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/3</span>
+                <span class='fraction'>2/3</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">81.25% </span>
+                <span class="strong">94.73% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>13/16</span>
+                <span class='fraction'>18/19</span>
             </div>
         
             
@@ -144,43 +144,43 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">&lt;template&gt;
-  &lt;div
-      v-show="modalActive"
-      class="absolute w-full bg-black bg-opacity-30 h-screen top-0 left-0 flex justify-center px-8"
-      data-qa-base-modal
-  &gt;
-    &lt;div class="p-4 bg-lpp-primary self-start mt-32 max-w-screen-md"&gt;
-      &lt;button type="button" class="fa-solid fa-xmark hover:text-lpp-third cursor-pointer" @click="$emit('close-modal')" data-qa-base-modal-button&gt;&lt;/button&gt;
-      &lt;h1 data-qa-base-modal-title&gt; {{ vendor.title }}&lt;/h1&gt;
-      &lt;img src="../assets/LittlePartyPro.png" data-qa-base-modal-img/&gt;
-      &lt;h2&gt;{{ vendor.longDesc}}&lt;/h2&gt;
-&nbsp;
-        &lt;ButtonComponent text="View Website" @click="goToSite(vendor)"/&gt;
-&nbsp;
-&nbsp;
+  &lt;div class="bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700" data-qa-card-component&gt;
+    &lt;img class="rounded-t-lg" src="../assets/LittlePartyPro.png" alt="vendor image"/&gt;
+    &lt;div class="p-5"&gt;
+      &lt;h5 class="mb-2 font-bold text-xl sm:text-l tracking-tight font-Arimo text-gray-900 dark:text-white" data-qa-card-component-title&gt;{{ vendor.title.toUpperCase() }}&lt;/h5&gt;
+      &lt;p class="mb-3 font-normal text-gray-700 text-Lato dark:text-gray-400" data-qa-card-component-short-desc&gt;{{ vendor.shortDesc }}.&lt;/p&gt;
+      &lt;div class="flex"&gt;
+        &lt;ButtonComponent text="View" class="self-end" @click="toggleModal()" data-qa-card-component-button&gt;
+          &lt;svg class="rtl:rotate-180 w-3.5 h-3.5 ms-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10"&gt;
+            &lt;path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9"/&gt;
+          &lt;/svg&gt;
+        &lt;/ButtonComponent&gt;
+      &lt;/div&gt;
     &lt;/div&gt;
   &lt;/div&gt;
 &nbsp;
+  &lt;BaseModal v-if="modalActive"
+             :modalActive="modalActive"
+             @close-modal="toggleModal"
+             :vendor="vendor"
+  /&gt;
 &nbsp;
 &lt;/template&gt;
 &nbsp;
 &lt;script setup&gt;
-import  { defineProps, defineEmits } from 'vue';
+import {defineProps, ref} from 'vue'
+import BaseModal from '@/components/BaseModal.vue'
 import ButtonComponent from '@/components/ButtonComponent.vue'
 &nbsp;
-defineEmits(['close-modal'])
+const modalActive = ref(false)
+&nbsp;
 defineProps({
-  modalActive: {
-    type: Boolean,
-    default: false,
-  },
-  vendor: Object
+  vendor: Object,
 })
 &nbsp;
-function goToSite(vendor) {
-  window.open(vendor.url)
+const toggleModal = () =&gt; {
+  modalActive.value = !modalActive.value
 }
-&nbsp;
 &lt;/script&gt;
 &nbsp;
 &nbsp;</pre></td></tr></table></pre>

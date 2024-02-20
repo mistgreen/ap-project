@@ -1,22 +1,73 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1708437618747" clover="3.2.0">
-  <project timestamp="1708437618747" name="All files">
-    <metrics statements="13" coveredstatements="13" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="2" elements="15" coveredelements="15" complexity="0" loc="13" ncloc="13" packages="1" files="1" classes="1"/>
-    <file name="ButtonComponent.vue" path="/Users/marie.collinge/dev_folder/part-b-mvp-of-a-full-stack-solution-60-mariecollingeada/littlepartypro/src/lpp-frontend/src/components/ButtonComponent.vue">
-      <metrics statements="13" coveredstatements="13" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="2"/>
-      <line num="4" count="1" type="stmt"/>
-      <line num="7" count="1" type="stmt"/>
-      <line num="8" count="1" type="stmt"/>
-      <line num="16" count="2" type="stmt"/>
-      <line num="17" count="2" type="stmt"/>
-      <line num="18" count="2" type="stmt"/>
-      <line num="22" count="2" type="stmt"/>
-      <line num="27" count="1" type="stmt"/>
-      <line num="30" count="1" type="stmt"/>
-      <line num="31" count="1" type="stmt"/>
-      <line num="32" count="1" type="stmt"/>
-      <line num="38" count="2" type="stmt"/>
-      <line num="39" count="1" type="stmt"/>
-    </file>
+<coverage generated="1708442462866" clover="3.2.0">
+  <project timestamp="1708442462866" name="All files">
+    <metrics statements="49" coveredstatements="40" conditionals="8" coveredconditionals="4" methods="8" coveredmethods="2" elements="65" coveredelements="46" complexity="0" loc="49" ncloc="49" packages="2" files="4" classes="4"/>
+    <package name="assets">
+      <metrics statements="1" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+      <file name="LittlePartyPro.png" path="/Users/marie.collinge/dev_folder/part-b-mvp-of-a-full-stack-solution-60-mariecollingeada/littlepartypro/src/lpp-frontend/src/assets/LittlePartyPro.png">
+        <metrics statements="1" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+        <line num="1" count="1" type="stmt"/>
+      </file>
+    </package>
+    <package name="components">
+      <metrics statements="48" coveredstatements="39" conditionals="8" coveredconditionals="4" methods="8" coveredmethods="2"/>
+      <file name="BaseModal.vue" path="/Users/marie.collinge/dev_folder/part-b-mvp-of-a-full-stack-solution-60-mariecollingeada/littlepartypro/src/lpp-frontend/src/components/BaseModal.vue">
+        <metrics statements="16" coveredstatements="13" conditionals="4" coveredconditionals="0" methods="3" coveredmethods="0"/>
+        <line num="4" count="1" type="stmt"/>
+        <line num="5" count="1" type="stmt"/>
+        <line num="8" count="1" type="stmt"/>
+        <line num="47" count="1" type="stmt"/>
+        <line num="48" count="1" type="stmt"/>
+        <line num="51" count="1" type="stmt"/>
+        <line num="52" count="1" type="stmt"/>
+        <line num="53" count="1" type="stmt"/>
+        <line num="54" count="1" type="stmt"/>
+        <line num="58" count="1" type="stmt"/>
+        <line num="61" count="1" type="stmt"/>
+        <line num="64" count="1" type="stmt"/>
+        <line num="69" count="0" type="stmt"/>
+        <line num="72" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="76" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="78" count="1" type="stmt"/>
+      </file>
+      <file name="ButtonComponent.vue" path="/Users/marie.collinge/dev_folder/part-b-mvp-of-a-full-stack-solution-60-mariecollingeada/littlepartypro/src/lpp-frontend/src/components/ButtonComponent.vue">
+        <metrics statements="13" coveredstatements="8" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="0"/>
+        <line num="4" count="1" type="stmt"/>
+        <line num="7" count="1" type="stmt"/>
+        <line num="8" count="1" type="stmt"/>
+        <line num="16" count="0" type="stmt"/>
+        <line num="17" count="0" type="stmt"/>
+        <line num="18" count="0" type="stmt"/>
+        <line num="22" count="0" type="stmt"/>
+        <line num="27" count="1" type="stmt"/>
+        <line num="30" count="1" type="stmt"/>
+        <line num="31" count="1" type="stmt"/>
+        <line num="32" count="1" type="stmt"/>
+        <line num="38" count="0" type="stmt"/>
+        <line num="39" count="1" type="stmt"/>
+      </file>
+      <file name="CardComponent.vue" path="/Users/marie.collinge/dev_folder/part-b-mvp-of-a-full-stack-solution-60-mariecollingeada/littlepartypro/src/lpp-frontend/src/components/CardComponent.vue">
+        <metrics statements="19" coveredstatements="18" conditionals="4" coveredconditionals="4" methods="3" coveredmethods="2"/>
+        <line num="4" count="1" type="stmt"/>
+        <line num="5" count="1" type="stmt"/>
+        <line num="8" count="1" type="stmt"/>
+        <line num="66" count="1" type="stmt"/>
+        <line num="67" count="1" type="stmt"/>
+        <line num="70" count="1" type="stmt"/>
+        <line num="71" count="1" type="stmt"/>
+        <line num="72" count="1" type="stmt"/>
+        <line num="73" count="1" type="stmt"/>
+        <line num="77" count="1" type="stmt"/>
+        <line num="82" count="1" type="stmt"/>
+        <line num="85" count="1" type="stmt"/>
+        <line num="89" count="1" type="stmt"/>
+        <line num="93" count="1" type="stmt"/>
+        <line num="96" count="1" type="stmt"/>
+        <line num="110" count="5" type="stmt"/>
+        <line num="113" count="1" type="cond" truecount="2" falsecount="0"/>
+        <line num="116" count="0" type="stmt"/>
+        <line num="124" count="1" type="stmt"/>
+      </file>
+    </package>
   </project>
 </coverage>
