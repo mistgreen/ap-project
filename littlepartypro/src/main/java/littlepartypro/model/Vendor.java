@@ -23,8 +23,7 @@ public record Vendor(
     @Column("tier_id")
     Integer tierId,
     @Column("vendor_type_id")
-    Integer vendorTypeId,
-    String url
+    Integer vendorTypeId
 ) {
 
 }

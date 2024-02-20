@@ -22,9 +22,8 @@
       :modalActive="modalActive"
       @close-modal="toggleModal"
              :vendor="vendor"
-  >
+  />
 
-  </BaseModal>
 </template>
 
 <script setup>

@@ -21,10 +21,10 @@
       </ButtonComponent>
 
       <div v-if="loginResponseStatus === 200">
-        <p>Login successful!</p>
+        <p>{{ method === 'login' ? 'Login successful!' : 'Registration successful!' }}</p>
       </div>
-      <div v-if="loginResponseStatus === 401">
-        <p class="text-red-400">Login failed!</p>
+      <div v-if="loginResponseStatus === 401 || loginResponseStatus === 500">
+        <p class="text-red-400">{{ method === 'login' ? 'Login failed' : 'Registration failed' }}</p>
       </div>
 
     </div>
@@ -50,7 +50,8 @@ defineProps({
     default: false,
   },
   method: String,
-  loginResponseStatus: Number
+  loginResponseStatus: Number,
+  loginResponseMessage: String
 })
 
 

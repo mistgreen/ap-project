@@ -25,26 +25,32 @@ import lombok.RequiredArgsConstructor;
 @CrossOrigin
 @RequiredArgsConstructor
 public class AuthController {
+
     private final AuthenticationManager authenticationManager;
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
 
     @PostMapping("/login")
     public ResponseEntity<String> login(@RequestBody LoginDto loginDto) {
+        if (loginDto.username().isEmpty() || loginDto.password().isEmpty()) {
+            return new ResponseEntity<>("Username or password must not be empty", HttpStatus.BAD_REQUEST);
+        }
         try {
             Authentication authentication = authenticationManager.authenticate((
                 new UsernamePasswordAuthenticationToken(loginDto.username(), loginDto.password())
             ));
             SecurityContextHolder.getContext().setAuthentication(authentication);
             return new ResponseEntity<>("User signed in successfully", HttpStatus.OK);
-        }
-        catch (AuthenticationException exception){
-            return new ResponseEntity<>("User does not exist", HttpStatus.UNAUTHORIZED) ;
+        } catch (AuthenticationException exception) {
+            return new ResponseEntity<>("User does not exist", HttpStatus.UNAUTHORIZED);
         }
     }
 
     @PostMapping("/register")
     public ResponseEntity<String> register(@RequestBody RegisterDto registerDto) {
+        if (registerDto.username().isEmpty() || registerDto.password().isEmpty()) {
+            return new ResponseEntity<>("Username or password must not be empty", HttpStatus.BAD_REQUEST);
+        }
         if (userRepository.existsByUsername(registerDto.username())) {
             return new ResponseEntity<>("Username is already taken!", HttpStatus.BAD_REQUEST);
         }
