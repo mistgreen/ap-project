@@ -50,38 +50,7 @@ VALUES
     ('BouncyBen', 'Manchester', 'M', 'Childrens Entertainer', '', '1', '4', 'https://www.bouncyben.co.uk'),
     ('Princess Impersonations', 'Manchester', 'M', 'Childrens Entertainer', '', '1', '4', 'https://www.princessimpersonations.co.uk');
 
-DROP TABLE IF EXISTS Attributes CASCADE;
 
-CREATE TABLE IF NOT EXISTS Attributes(
-                                         id SERIAL PRIMARY KEY,
-                                         attribute_name VARCHAR(50)
-    );
-
-INSERT INTO Attributes(attribute_name)
-VALUES
-    ('indoors'),
-    ('outdoors'),
-    ('soft play'),
-    ('farm'),
-    ('accessible');
-
-DROP TABLE IF EXISTS Vendor_Attributes CASCADE;
-
-CREATE TABLE IF NOT EXISTS Vendor_Attributes(
-                                                id SERIAL PRIMARY KEY,
-                                                vendor_id INTEGER NOT NULL,
-                                                attribute_id INTEGER NOT NULL,
-                                                FOREIGN KEY (vendor_id) REFERENCES Vendors(id),
-    FOREIGN KEY (attribute_id) REFERENCES Attributes(id)
-    );
-
-INSERT INTO Vendor_Attributes (vendor_id, attribute_id)
-VALUES
-    (1,1),
-    (1,3),
-    (2,1),
-    (3,1),
-    (4,1);
 
 DROP TABLE IF EXISTS Users CASCADE;
 CREATE TABLE IF NOT EXISTS Users ( id SERIAL PRIMARY KEY,
@@ -89,13 +58,9 @@ CREATE TABLE IF NOT EXISTS Users ( id SERIAL PRIMARY KEY,
     password VARCHAR NOT NULL,
     role_id INTEGER NOT NULL DEFAULT 1
 );
--- INSERT INTO Users (username, password)
--- VALUES
+
 ALTER TABLE Users ALTER COLUMN role_id SET DEFAULT 1;
 
--- INSERT INTO Users (username, password)
--- VALUES
---     ('marie', 'password');
 
 DROP TABLE IF EXISTS Roles CASCADE;
 CREATE TABLE IF NOT EXISTS Roles (
