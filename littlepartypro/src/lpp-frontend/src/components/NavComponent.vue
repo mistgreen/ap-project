@@ -3,15 +3,9 @@
     <nav class="gap-4 py-6">
 
       <div class="flex justify-end">
-        <ButtonComponent class="m-1 min-w-16 max-w-16 flex justify-center" @click="openLoginModal()" v-if="!loginSuccessful">
-          Login
-        </ButtonComponent>
-        <ButtonComponent class="m-1 min-w-16 max-w-16 flex justify-center" @click="openRegisterModal()" v-if="!loginSuccessful">
-          Register
-        </ButtonComponent>
-        <ButtonComponent class="m-1 min-w-16 max-w-16 flex justify-center" @click="toggleLogin()" v-if="loginSuccessful">
-          Logout
-        </ButtonComponent>
+        <ButtonComponent text="Login" class="m-1 min-w-16 max-w-16 flex justify-center" @click="openLoginModal()" v-if="!loginSuccessful"/>
+        <ButtonComponent text="Register" class="m-1 min-w-16 max-w-16 flex justify-center" @click="openRegisterModal()" v-if="!loginSuccessful"/>
+        <ButtonComponent text="Logout" class="m-1 min-w-16 max-w-16 flex justify-center" @click="toggleLogin()" v-if="loginSuccessful"/>
       </div>
       <div>
         <div class="flex justify-center gap-3">

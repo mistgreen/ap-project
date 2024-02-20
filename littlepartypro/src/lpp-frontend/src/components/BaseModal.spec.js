@@ -15,20 +15,20 @@ const mountComponent = () => {
 }
 
 describe('BaseModal', () => {
-  let wrapper
+  let wrapper;
 
   describe('When component is mounted', () => {
     beforeEach(() => {
       wrapper = mountComponent()
-    })
+    });
 
     test('Should mount given component', () => {
       expect(wrapper.find('[data-qa-base-modal]').exists()).toBe(true)
-    })
+    });
 
     test('Should add given title', () => {
       expect(wrapper.find('[data-qa-base-modal-title]').text()).toBe('Test Vendor')
-    })
+    });
 
     describe('When close modal button is clicked', () => {
       test('Should emit close-modal event', () => {
@@ -36,8 +36,8 @@ describe('BaseModal', () => {
         expect(wrapper.emitted()).toHaveProperty('close-modal')
         expect(wrapper.emitted('close-modal')).toBeTruthy()
         expect(wrapper.emitted('close-modal')).toHaveLength(1)
-      })
-    })
-  })
+      });
+    });
+  });
 
 });

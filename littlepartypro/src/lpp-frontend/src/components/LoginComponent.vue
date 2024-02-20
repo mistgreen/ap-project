@@ -16,9 +16,8 @@
         <input :type="passwordFieldType" id="password" v-model="password" :placeholder="'password'" required/>
       </form>
 
-      <ButtonComponent @click="$emit('perform-action', method, username, password)">
-        Submit
-      </ButtonComponent>
+      <ButtonComponent text="Submit" @click="$emit('perform-action', method, username, password)"/>
+
 
       <div v-if="loginResponseStatus === 200">
         <p>{{ method === 'login' ? 'Login successful!' : 'Registration successful!' }}</p>

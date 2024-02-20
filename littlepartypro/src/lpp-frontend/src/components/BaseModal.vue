@@ -10,8 +10,7 @@
       <img src="../assets/LittlePartyPro.png" data-qa-base-modal-img/>
       <h2>{{ vendor.longDesc}}</h2>
 
-        <ButtonComponent @click="goToSite(vendor)">
-          View Website</ButtonComponent>
+        <ButtonComponent text="View Website" @click="goToSite(vendor)"/>
 
 
     </div>
