@@ -1,6 +1,6 @@
 <template>
   <div class="bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700" data-qa-card-component>
-    <img class="rounded-t-lg" src="../assets/LittlePartyPro.png" alt="vendor image"/>
+    <img class="rounded-t-lg" :src="getImageUrl(vendor.id)" alt="vendor image"/>
     <div class="p-5">
       <h5 class="mb-2 font-bold text-xl sm:text-l tracking-tight font-Arimo text-gray-900 dark:text-white" data-qa-card-component-title>{{ vendor.title.toUpperCase() }}</h5>
       <p class="mb-3 font-normal text-gray-700 text-Lato dark:text-gray-400" data-qa-card-component-short-desc>{{ vendor.shortDesc }}.</p>
@@ -36,5 +36,19 @@ defineProps({
 const toggleModal = () => {
   modalActive.value = !modalActive.value
 }
+
+function getImageUrl(vendor) {
+  let imageUrl;
+
+    try {
+      imageUrl = require(`../assets/Vendors/${vendor}.jpeg`);
+    } catch (error) {
+      console.error(`Image for vendor ${vendor} not found. Using default image.`);
+      imageUrl = require('../assets/LittlePartyPro.png');
+    }
+    return imageUrl;
+  }
+
+
 </script>
 

@@ -39,7 +39,7 @@ CREATE TABLE IF NOT EXISTS Vendors(
 
 INSERT INTO Vendors (title, address, postcode, short_desc, long_desc, tier_id, vendor_type_id, url)
 VALUES
-    ('Jolly Giraffes', 'Rochdale', 'OL11 5BX', 'Packaged Party', 'The best soft play centre in Rochdale! We have a 3 tier main frame and a toddler area.', '1', '1', 'https://jollygiraffesltd.com'),
+    ('Jolly Giraffes', 'Rochdale', 'OL11 5BX', 'Packaged Party', 'The best soft play centre in Rochdale! We have a 3 tier main frame and a toddler area.', '1', '1', 'https://jollygiraffesltd.co.uk/'),
     ('Bounce Central', 'Salford', 'M27 8SE', 'Packaged Party', '', '1', '1', 'https://www.bouncecentraluk.com'),
     ('Chill Factore', 'Manchester', 'M41 7JA', 'Packaged Party', '', '1', '1', 'https://www.chillfactore.com/parties'),
     ('Smithills Open Farm', 'Bolton', 'BL1 7NS', 'Packaged Party', '', '1', '1', 'https://www.smithillsopenfarm.co.uk/groups-parties'),

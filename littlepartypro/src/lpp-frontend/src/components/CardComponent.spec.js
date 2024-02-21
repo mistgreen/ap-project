@@ -1,6 +1,5 @@
 import { shallowMount } from '@vue/test-utils';
 import CardComponent from '@/components/CardComponent.vue'
-import ButtonComponent from '@/components/ButtonComponent.vue'
 
 const mountComponent = () => {
   return shallowMount(CardComponent, {
