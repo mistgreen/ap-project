@@ -37,7 +37,6 @@ const vendors = ref([]);
 const filteredVendors = ref([]);
 const selectedCategory = ref(null);
 const searchQuery = ref({});
-const queryTimeout = ref(null);
 
 onMounted(() => {
   getAllVendors();
@@ -67,7 +66,6 @@ function performSearch(searchString) {
     "searchQuery": searchString
   };
 
-  queryTimeout.value = setTimeout(() => {
     if (pattern.test(searchString)) {
       fetch(`api/vendor/filter/search`, {
         method: 'POST',
@@ -79,14 +77,11 @@ function performSearch(searchString) {
         if (!response.ok) {
           throw new Error(`HTTP error! Status: ${response.status}`);
         }
-        return response.json();
-      }).then(data => {
-        vendors.value = data.map(vendor => vendor);
+        return response.json.map(vendor => vendor)
       }).catch(error => {
         console.error('Error:', error);
       });
     }
-  }, 300);
 }
 
 

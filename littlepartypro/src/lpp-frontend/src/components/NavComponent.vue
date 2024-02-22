@@ -1,7 +1,6 @@
 <template>
   <header class="sticky top-0 bg-lpp-primary shadow-lg" data-qa-nav-component>
     <nav class="gap-4 py-6">
-
       <div class="flex justify-end">
         <ButtonComponent text="Login" class="m-1 min-w-16 max-w-16 flex justify-center" @click="openLoginModal()" v-if="!loginSuccessful" data-qa-nav-component-login-button/>
         <ButtonComponent text="Register" class="m-1 min-w-16 max-w-16 flex justify-center" @click="openRegisterModal()" v-if="!loginSuccessful" data-qa-nav-component-register-button/>
@@ -16,7 +15,6 @@
         <p>Welcome, {{ loggedInUsername }}!</p>
       </div>
     </nav>
-
   </header>
 
   <LoginComponent v-if="modalActive"
@@ -26,9 +24,7 @@
                   @perform-action="performAction"
                   :login-response-status="loginResponseStatus"
                   :login-response-message="loginResponseMessage"
-  >
-
-  </LoginComponent>
+  />
 </template>
 
 <script setup>
@@ -70,12 +66,11 @@ const openRegisterModal = () => {
   modalActive.value = true
 }
 
-function performAction(method, username, password) {
+function performAction(endpoint, username, password) {
   // const pattern = /([A-Za-z0-9])\w+/;
   // searchQuery.value = {
   //   "searchQuery": searchString
   // };
-  const endpoint = method === 'login' ? 'login' : 'register'
 
   fetch(`api/auth/${endpoint}`, {
     method: 'POST',
@@ -84,7 +79,6 @@ function performAction(method, username, password) {
       'Content-Type': 'application/json',
     },
   }).then(response => {
-    console.log(response)
     if (!response.ok) {
       throw new Error(`HTTP error! Status: ${response.status}`)
     }
