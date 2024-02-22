@@ -1,18 +1,18 @@
 <template>
-  <header class="sticky top-0 bg-lpp-primary shadow-lg">
+  <header class="sticky top-0 bg-lpp-primary shadow-lg" data-qa-nav-component>
     <nav class="gap-4 py-6">
 
       <div class="flex justify-end">
-        <ButtonComponent text="Login" class="m-1 min-w-16 max-w-16 flex justify-center" @click="openLoginModal()" v-if="!loginSuccessful"/>
-        <ButtonComponent text="Register" class="m-1 min-w-16 max-w-16 flex justify-center" @click="openRegisterModal()" v-if="!loginSuccessful"/>
-        <ButtonComponent text="Logout" class="m-1 min-w-16 max-w-16 flex justify-center" @click="toggleLogin()" v-if="loginSuccessful"/>
+        <ButtonComponent text="Login" class="m-1 min-w-16 max-w-16 flex justify-center" @click="openLoginModal()" v-if="!loginSuccessful" data-qa-nav-component-login-button/>
+        <ButtonComponent text="Register" class="m-1 min-w-16 max-w-16 flex justify-center" @click="openRegisterModal()" v-if="!loginSuccessful" data-qa-nav-component-register-button/>
+        <ButtonComponent text="Logout" class="m-1 min-w-16 max-w-16 flex justify-center" @click="toggleLogin()" v-if="loginSuccessful" data-qa-nav-component-logout-button/>
       </div>
       <div>
         <div class="flex justify-center gap-3">
-          <a href="http://localhost:3000" class="font-Bellaboo text-6xl md:text-8xl text-lpp-text-primary hover:text-lpp-third cursor-pointer">Little Party Pro</a>
+          <a href="http://localhost:3000" class="font-Bellaboo text-6xl md:text-8xl text-lpp-text-primary hover:text-lpp-third cursor-pointer" data-qa-nav-component-title>Little Party Pro</a>
         </div>
       </div>
-      <div v-if="loggedInUsername !== undefined">
+      <div v-if="loggedInUsername !== undefined" data-qa-nav-component-logged-in-message>
         <p>Welcome, {{ loggedInUsername }}!</p>
       </div>
     </nav>
@@ -40,7 +40,7 @@ import {defineProps, ref, watchEffect} from 'vue'
 
 const modalActive = ref(false)
 const modalMethod = ref()
-const queryTimeout = ref(null)
+
 const loginResponseStatus = ref()
 const loggedInUsername = ref()
 const loginSuccessful = ref(false)
@@ -75,33 +75,28 @@ function performAction(method, username, password) {
   // searchQuery.value = {
   //   "searchQuery": searchString
   // };
-  const user = {username, password}
+  const endpoint = method === 'login' ? 'login' : 'register'
 
-  queryTimeout.value = setTimeout(() => {
-    const endpoint = method === 'login' ? 'login' : 'register'
-    fetch(`api/auth/${endpoint}`, {
-      method: 'POST',
-      body: JSON.stringify(user),
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    }).then(response => {
-      loginResponseStatus.value = response.status;
-      console.log(loginResponseStatus.value)
-      if (!response.ok) {
-        throw new Error(`HTTP error! Status: ${response.status}`)
-      }
-      return response.text()
-    }).then(data => {
-      loggedInUsername.value = username
-      loginSuccessful.value = true
-      setTimeout(() => {
-        toggleModal()
-      }, 2000)
-      console.log(`${method} successful:` + data)
-    }).catch(error => {
-      console.error('Error:', error)
-    })
+  fetch(`api/auth/${endpoint}`, {
+    method: 'POST',
+    body: JSON.stringify({username, password}),
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  }).then(response => {
+    console.log(response)
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`)
+    }
+
+    loggedInUsername.value = username
+    loginSuccessful.value = true
+
+    toggleModal()
+
+    return response.text()
+  }).catch(error => {
+    console.error('Error:', error)
   })
 }
 
