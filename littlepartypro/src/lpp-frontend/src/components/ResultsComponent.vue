@@ -1,26 +1,30 @@
 <template>
-  <div class="px-4 pb-4">
-    <SearchComponent @perform-search="performSearch" @select-vendor="performSearch"/>
-
+  <div class="px-4 pb-4" data-qa-results-component>
+    <SearchComponent
+        @perform-search="performSearch"
+        @select-vendor="performSearch"
+        data-qa-results-component-search-component/>
   </div>
   <CategoryComponent
     @category-filter="getType"
+    data-qa-results-component-category-component
   />
 <div class="min-h-60">
-  <div >
+  <div>
     <div v-if="!vendors.length" class="bg-lpp-primary text-center p-4">
       <h1>Sorry, we couldn't find anything for {{searchQuery.searchQuery}}.</h1>
       <h1>Hint: You can search by town (location) or by the company name.</h1>
     </div>
 
-    <div v-else  >
+    <div v-else>
         <div class="px-5">
           <p>Showing {{vendors.length}} results.</p>
         </div>
       <div class="grid justify-items-center items-stretch grid-cols-1 sm:grid-cols-3 md:grid-cols-4 ">
         <div class="flex max-w-xs p-4" v-for="vendor in vendors" :key="vendor.id">
           <CardComponent :vendor="vendor"/>
-        </div></div>
+        </div>
+      </div>
     </div>
   </div>
 </div>
