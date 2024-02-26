@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">93.75% </span>
+                <span class="strong">94.11% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>15/16</span>
+                <span class='fraction'>16/17</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">93.75% </span>
+                <span class="strong">94.11% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>15/16</span>
+                <span class='fraction'>16/17</span>
             </div>
         
             
@@ -155,7 +155,18 @@
 <a name='L90'></a><a href='#L90'>90</a>
 <a name='L91'></a><a href='#L91'>91</a>
 <a name='L92'></a><a href='#L92'>92</a>
-<a name='L93'></a><a href='#L93'>93</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L93'></a><a href='#L93'>93</a>
+<a name='L94'></a><a href='#L94'>94</a>
+<a name='L95'></a><a href='#L95'>95</a>
+<a name='L96'></a><a href='#L96'>96</a>
+<a name='L97'></a><a href='#L97'>97</a>
+<a name='L98'></a><a href='#L98'>98</a>
+<a name='L99'></a><a href='#L99'>99</a>
+<a name='L100'></a><a href='#L100'>100</a>
+<a name='L101'></a><a href='#L101'>101</a>
+<a name='L102'></a><a href='#L102'>102</a>
+<a name='L103'></a><a href='#L103'>103</a>
+<a name='L104'></a><a href='#L104'>104</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
@@ -163,6 +174,17 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -255,23 +277,23 @@
         data-qa-results-component-search-component/&gt;
   &lt;/div&gt;
   &lt;CategoryComponent
-    @category-filter="getType"
+    @category-filter="getVendorType"
     data-qa-results-component-category-component
   /&gt;
 &lt;div class="min-h-60"&gt;
   &lt;div&gt;
-    &lt;div v-if="!vendors.length" class="bg-lpp-primary text-center p-4"&gt;
+    &lt;div v-if="!vendors.length" class="bg-lpp-primary text-center p-4" data-qa-results-component-vendor-no-results-message&gt;
       &lt;h1&gt;Sorry, we couldn't find anything for {{searchQuery.searchQuery}}.&lt;/h1&gt;
       &lt;h1&gt;Hint: You can search by town (location) or by the company name.&lt;/h1&gt;
     &lt;/div&gt;
 &nbsp;
     &lt;div v-else&gt;
-        &lt;div class="px-5"&gt;
-          &lt;p&gt;Showing {{vendors.length}} results.&lt;/p&gt;
+        &lt;div class="px-5" data-qa-results-component-vendor-results&gt;
+          &lt;p data-qa-results-component-vendor-results-message&gt;Showing {{vendors.length}} results.&lt;/p&gt;
         &lt;/div&gt;
       &lt;div class="grid justify-items-center items-stretch grid-cols-1 sm:grid-cols-3 md:grid-cols-4 "&gt;
         &lt;div class="flex max-w-xs p-4" v-for="vendor in vendors" :key="vendor.id"&gt;
-          &lt;CardComponent :vendor="vendor"/&gt;
+          &lt;CardComponent :vendor="vendor" data-qa-results-component-vendor-results-card/&gt;
         &lt;/div&gt;
       &lt;/div&gt;
     &lt;/div&gt;
@@ -304,13 +326,21 @@ function getAllVendors() {
   });
 }
 &nbsp;
-function getType(category) {
+function getVendorType(category) {
   selectedCategory.value = category;
   fetch(`api/vendor/filter/vendorType/${category}`)
-  .then((response) =&gt; response.json())
+  .then((response) =&gt; {
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`);
+    }
+    return response.json();
+  })
   .then((data) =&gt; {
     vendors.value = data.map((vendor) =&gt; vendor);
-  });
+  }).catch(error =&gt; {
+    console.error('Error:', error);
+  })
+  ;
 }
 &nbsp;
 function performSearch(searchString) {
@@ -330,7 +360,10 @@ function performSearch(searchString) {
         if (!response.ok) {
           throw new Error(`HTTP error! Status: ${response.status}`);
         }
-        return response.json.map(vendor =&gt; vendor)
+        console.log(response);
+        return response.json();
+      }).then(data =&gt; {
+        vendors.value = data.map(vendor =&gt; vendor);
       }).catch(error =&gt; {
         console.error('Error:', error);
       });
@@ -346,7 +379,7 @@ function performSearch(searchString) {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-02-23T06:46:34.448Z
+                at 2024-02-23T15:53:31.822Z
             </div>
         <script src="../prettify.js"></script>
         <script>

@@ -55,7 +55,7 @@ describe('Nav Component', () => {
         wrapper.vm.performAction('login', 'Foo', 'Bar')
       })
 
-      it('Should', () => {
+      it('Should call perform action function', () => {
         expect(fetchSpy).toHaveBeenCalled()
       })
 
