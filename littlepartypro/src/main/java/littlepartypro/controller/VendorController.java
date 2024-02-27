@@ -2,7 +2,6 @@ package littlepartypro.controller;
 
 import java.util.List;
 
-import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -10,7 +9,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.server.ResponseStatusException;
 
 import littlepartypro.dto.SearchRequest;
 import littlepartypro.model.Vendor;
@@ -29,12 +27,6 @@ public class VendorController {
     public List<Vendor> getAllVendors() {
         return repository.findAll();
     }
-
-    @GetMapping("/{id}")
-    public Vendor getVendorById(@PathVariable Integer id) {
-        return repository.findById(id)
-            .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Content not found."));
-    } //TODO remove me please
 
     @GetMapping("/filter/vendorType/{vendorType}")
     public List<Vendor> getVendorsByVendorType(@PathVariable String vendorType) {
