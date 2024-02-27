@@ -37,15 +37,14 @@ function goToSite(vendor) {
 }
 
 function getImageUrl(vendor) {
-  let imageUrl
-
+  let vendorImageUrl
   try {
-    imageUrl = require(`../assets/Vendors/${vendor}.jpeg`)
+    vendorImageUrl = require(`../assets/Vendors/${vendor}.jpeg`)
   } catch (error) {
     console.error(`Image for vendor ${vendor} not found. Using default image.`)
-    imageUrl = require('../assets/LittlePartyPro.png')
+    vendorImageUrl = require('../assets/LittlePartyPro.png')
   }
-  return imageUrl
+  return vendorImageUrl
 }
 
 </script>
