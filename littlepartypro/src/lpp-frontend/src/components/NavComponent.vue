@@ -46,7 +46,7 @@ defineProps({
   modalMethod: String,
   loginResponseStatus: Number,
   loggedInUsername: String,
-  loginResponseMessage: String
+  loginResponseMessage: String,
 })
 const toggleModal = () => {
   modalActive.value = false
@@ -80,9 +80,9 @@ function performAction(endpoint, username, password) {
     },
   }).then(response => {
     if (!response.ok) {
+      loginResponseStatus.value = response.status
       throw new Error(`HTTP error! Status: ${response.status}`)
     }
-
     loggedInUsername.value = username
     loginSuccessful.value = true
 
@@ -94,11 +94,11 @@ function performAction(endpoint, username, password) {
   })
 }
 
-  watchEffect(() => {
-    if (!modalActive.value) {
-      loginResponseStatus.value = null
-    }
-  })
+watchEffect(() => {
+  if (!modalActive.value) {
+    loginResponseStatus.value = null
+  }
+})
 </script>
 
 

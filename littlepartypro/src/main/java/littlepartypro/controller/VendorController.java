@@ -17,7 +17,7 @@ import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequestMapping("/api/vendor")
-@CrossOrigin //TODO may want to update this to change permissions to front end
+@CrossOrigin
 @RequiredArgsConstructor
 public class VendorController {
 
