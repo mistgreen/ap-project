@@ -13,11 +13,13 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.web.util.UriComponentsBuilder;
 import org.testcontainers.junit.jupiter.Testcontainers;
 
+import littlepartypro.dto.SearchRequest;
 import littlepartypro.model.Vendor;
 
 @Testcontainers
 @ContextConfiguration
-public class IntegrationTest extends BaseIntegrationTest {
+public class VendorIntegrationTest extends BaseIntegrationTest {
+
 
     @Test
     void givenVendorsExistInDatabase_whenRequestToGetAllVendors_shouldReturnAllVendors() {
@@ -37,17 +39,34 @@ public class IntegrationTest extends BaseIntegrationTest {
     }
 
     @Test
-    void givenVendorsExistInDatabase_whenRequestToGetVendorsByTypeIsInvalid_shouldReturnAnError() {
+    void givenVendorsExistInDatabase_whenRequestToGetVendorsByTypeIsInvalid_shouldReturnNoVendors() {
         final ResponseEntity<Vendor[]> response = restTemplate.getForEntity(getVendorByTypeURI("Foo"), Vendor[].class);
         assertEquals(response.getStatusCode(), HttpStatusCode.valueOf(200));
         assertThat(response.getBody()).isEmpty();
     }
 
     @Test
-    void givenVendorsExistInDatabase_whenSearchRequestIsProvided_shouldReturnCorrectVendors() {
-        final ResponseEntity<Vendor[]> response = restTemplate.getForEntity(getVendorBySearchRequestURI("Foo"), Vendor[].class);
+    void givenVendorsExistInDatabase_whenSearchRequestIsProvidedValid_shouldReturnCorrectVendors() {
+        String searchQuery = "Chill";
+        SearchRequest searchRequest = new SearchRequest();
+        searchRequest.setSearchQuery(searchQuery);
+
+        final ResponseEntity<Vendor[]> response = restTemplate.postForEntity(getVendorBySearchRequestURI(), searchRequest, Vendor[].class);
+        assertThat(response.getBody().length).isEqualTo(1);
+        assertThat(response.getBody()[0].title().equalsIgnoreCase("Chill Factore"));
     }
 
+    @Test
+    void givenVendorsExistInDatabase_whenSearchRequestIsProvidedInvalid_shouldReturnNoVendors() {
+        String searchQuery = "Foo";
+        SearchRequest searchRequest = new SearchRequest();
+        searchRequest.setSearchQuery(searchQuery);
+
+        final ResponseEntity<Vendor[]> response = restTemplate.postForEntity(getVendorBySearchRequestURI(), searchRequest, Vendor[].class);
+        assertThat(response.getBody().length).isEqualTo(0);
+        assertThat(response.getBody()).isEmpty();
+
+    }
 
     private URI getAllVendorsURI() {
         return UriComponentsBuilder
@@ -63,7 +82,7 @@ public class IntegrationTest extends BaseIntegrationTest {
             .toUri();
     }
 
-    private URI getVendorBySearchRequestURI(final String searchRequest) {
+    private URI getVendorBySearchRequestURI() {
         return UriComponentsBuilder
             .fromHttpUrl("http://localhost:" + port + "/api/vendor/filter/search")
             .build()

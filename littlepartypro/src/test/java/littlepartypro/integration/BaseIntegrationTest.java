@@ -17,6 +17,8 @@ import org.testcontainers.containers.PostgreSQLContainer;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 
+import littlepartypro.dto.SearchRequest;
+
 @TestInstance(PER_METHOD)
 @Testcontainers
 @SpringBootTest(webEnvironment = RANDOM_PORT)
@@ -56,4 +58,5 @@ public class BaseIntegrationTest {
     @Autowired
     protected NamedParameterJdbcTemplate jdbcTemplate;
 
+    public SearchRequest searchRequest = new SearchRequest();
 }
