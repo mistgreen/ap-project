@@ -9,7 +9,6 @@ import org.junit.jupiter.api.TestInstance;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.server.LocalServerPort;
-import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.test.context.DynamicPropertyRegistry;
 import org.springframework.test.context.DynamicPropertySource;
@@ -17,8 +16,6 @@ import org.springframework.web.client.RestTemplate;
 import org.testcontainers.containers.PostgreSQLContainer;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
-
-import littlepartypro.model.Vendor;
 
 @TestInstance(PER_METHOD)
 @Testcontainers
@@ -59,17 +56,4 @@ public class BaseIntegrationTest {
     @Autowired
     protected NamedParameterJdbcTemplate jdbcTemplate;
 
-    protected void insertVendor(Vendor vendor) {
-        jdbcTemplate.update(insertVendorsSQL,
-            new MapSqlParameterSource()
-                .addValue("title", vendor.title())
-                .addValue("address", vendor.address())
-                .addValue("postcode", vendor.postcode())
-                .addValue("shortDesc", vendor.shortDesc())
-                .addValue("longDesc", vendor.longDesc())
-                .addValue("tierId", vendor.tierId())
-                .addValue("vendorTypeId", vendor.vendorTypeId())
-                .addValue("url", vendor.url()));
-
-    }
 }

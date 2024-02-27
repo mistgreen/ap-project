@@ -64,12 +64,12 @@ DELETE http://localhost:8080/api/vendor/7
 Content-Type: application/json
 
 ### Filter by Type
-GET http://localhost:8080/api/vendor/filter/vendorType/1
+GET http://localhost:8080/api/vendor/filter/vendorType/foo
 
 ### Search
 POST http://localhost:8080/api/vendor/filter/search
 Content-Type: application/json
 
 {
-  "searchQuery" : "Chill"
+  "searchQuery": "Foo"
 }

@@ -25,16 +25,6 @@ public class IntegrationTest extends BaseIntegrationTest {
         assertEquals(response.getStatusCode(), HttpStatusCode.valueOf(200));
         assertThat(response.getBody()).isNotEmpty();
         assertThat(response.getBody().length).isEqualTo(10);
-
-//        final Vendor vendor = new Vendor(null, "My Vendor", "Manchester", "M307HZ", "Cake Factory", "Very Big Cake Factory", 1, 1, "www.thecakefactory.co.uk");
-//
-//        insertVendor(vendor);
-//
-//        final ResponseEntity<Vendor[]> response2 = restTemplate.getForEntity(getAllVendorsURI(), Vendor[].class);
-//
-//        assertEquals(response2.getStatusCode(), HttpStatusCode.valueOf(200));
-//        assertThat(response2.getBody()).isNotEmpty();
-//        assertThat(response2.getBody().length).isEqualTo(11);
     }
 
     @Test
@@ -53,6 +43,11 @@ public class IntegrationTest extends BaseIntegrationTest {
         assertThat(response.getBody()).isEmpty();
     }
 
+    @Test
+    void givenVendorsExistInDatabase_whenSearchRequestIsProvided_shouldReturnCorrectVendors() {
+        final ResponseEntity<Vendor[]> response = restTemplate.getForEntity(getVendorBySearchRequestURI("Foo"), Vendor[].class);
+    }
+
 
     private URI getAllVendorsURI() {
         return UriComponentsBuilder
@@ -64,6 +59,13 @@ public class IntegrationTest extends BaseIntegrationTest {
     private URI getVendorByTypeURI(final String vendorType) {
         return UriComponentsBuilder
             .fromHttpUrl("http://localhost:" + port + "/api/vendor/filter/vendorType/" + vendorType)
+            .build()
+            .toUri();
+    }
+
+    private URI getVendorBySearchRequestURI(final String searchRequest) {
+        return UriComponentsBuilder
+            .fromHttpUrl("http://localhost:" + port + "/api/vendor/filter/search")
             .build()
             .toUri();
     }
