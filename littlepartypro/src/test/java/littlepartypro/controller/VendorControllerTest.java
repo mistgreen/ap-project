@@ -29,7 +29,7 @@ class VendorControllerTest {
 
     @Test
     void whenFindAllShouldCallFindAllOnVendorRepository(){
-        vendorController.findALL();
+        vendorController.getAllVendors();
         verify(repository).findAll();
     }
 
@@ -39,7 +39,7 @@ class VendorControllerTest {
         List<Vendor> expectedList = List.of(vendor);
         when(repository.findAll()).thenReturn(expectedList);
 
-        List<Vendor> vendorList = vendorController.findALL();
+        List<Vendor> vendorList = vendorController.getAllVendors();
 
         assertEquals(expectedList, vendorList);
     }
@@ -49,7 +49,7 @@ class VendorControllerTest {
         Vendor vendor = new Vendor(1, "A", "10 Street", "OL10 3ST", "planned party", "soft play provider", 1, 1, "");
         when(repository.findById(1)).thenReturn(Optional.of(vendor));
 
-        vendorController.findById(1);
+        vendorController.getVendorById(1);
 
         verify(repository).findById(1);
     }
@@ -59,7 +59,7 @@ class VendorControllerTest {
         Vendor vendor = new Vendor(1, "A", "10 Street", "OL10 3ST", "planned party", "soft play provider", 1, 1, "");
         when(repository.findById(1)).thenReturn(Optional.of(vendor));
 
-        Vendor expectedVendor = vendorController.findById(1);
+        Vendor expectedVendor = vendorController.getVendorById(1);
         assertEquals(expectedVendor, vendor);
     }
 
@@ -67,12 +67,12 @@ class VendorControllerTest {
     void whenFindByIdShouldReturnNotFound(){
         when(repository.findById(3)).thenReturn(Optional.empty());
 
-        assertThrows(ResponseStatusException.class, () -> {vendorController.findById(3);});
+        assertThrows(ResponseStatusException.class, () -> {vendorController.getVendorById(3);});
     }
 
     @Test
     void whenFilterByTypeShouldCallFindAllByVendorTypeOnRepository(){
-        vendorController.filterByType("VENUE");
+        vendorController.getVendorsByVendorType("VENUE");
         verify(repository).findAllByVendorType("VENUE");
     }
 
@@ -82,14 +82,14 @@ class VendorControllerTest {
         Vendor vendorTwo = new Vendor(2, "B", "30 Road", "M2 5JG", "planned party", "soft play provider", 1, 1, "");
         List<Vendor> expectedList = List.of(vendorOne, vendorTwo);
 
-        when(vendorController.filterByType("VENUE")).thenReturn(expectedList);
-        assertEquals(expectedList, vendorController.filterByType("VENUE"));
+        when(vendorController.getVendorsByVendorType("VENUE")).thenReturn(expectedList);
+        assertEquals(expectedList, vendorController.getVendorsByVendorType("VENUE"));
     }
 
     @Test
     void whenFilterByRequestShouldCallGetSearchQueryOnRepository(){
         SearchRequest mockedSearch = new SearchRequest("request string");
-        vendorController.filterByRequest(mockedSearch);
+        vendorController.getVendorBySearchRequest(mockedSearch);
 
         verify(repository).findAllByRequest("request string");
     }
@@ -100,9 +100,9 @@ class VendorControllerTest {
         Vendor vendorTwo = new Vendor(2, "B", "30 Road", "M2 5JG", "planned party", "soft play provider", 1, 1, "");
         SearchRequest mockedSearch = new SearchRequest("request string");
         List<Vendor> expectedList = List.of(vendorOne, vendorTwo);
-        when(vendorController.filterByRequest(mockedSearch)).thenReturn(expectedList);
+        when(vendorController.getVendorBySearchRequest(mockedSearch)).thenReturn(expectedList);
 
-        assertEquals(expectedList, vendorController.filterByRequest(mockedSearch));
+        assertEquals(expectedList, vendorController.getVendorBySearchRequest(mockedSearch));
     }
 
 

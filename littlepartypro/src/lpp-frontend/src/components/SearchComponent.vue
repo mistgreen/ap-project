@@ -1,5 +1,5 @@
 <template>
-  <div class="max-w-2xl mx-auto" :class="{ 'z-0': modalActive }">
+  <div class="max-w-2xl mx-auto" :class="{ 'z-0': modalActive }" data-qa-search-component>
     <form class="flex items-center" @submit.prevent="handleSubmit">
       <label for="simple-search" class="sr-only">Search Little Party Pro</label>
       <div class="relative w-full">
@@ -18,7 +18,7 @@
             required
         />
         <ul class="absolute text-black bg-white w-full shadow-md top-[66]" v-if="searchResult">
-          <li v-for="vendor in searchResult" :key="vendor.id" class="py-2 cursor-pointer" > {{vendor.title}}</li>
+          <li v-for="vendor in searchResult" :key="vendor.id" class="py-2 cursor-pointer" @click="$emit('perform-search', searchString)"> {{vendor.title}}</li>
         </ul>
       </div>
       <button

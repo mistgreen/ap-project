@@ -2,7 +2,6 @@ package littlepartypro.repository;
 
 import org.springframework.data.jdbc.repository.query.Query;
 import org.springframework.data.repository.ListCrudRepository;
-
 import littlepartypro.model.Vendor;
 import java.util.List;
 public interface VendorRepository extends ListCrudRepository<Vendor, Integer> {
