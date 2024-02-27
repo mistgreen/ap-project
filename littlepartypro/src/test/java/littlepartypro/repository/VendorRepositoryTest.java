@@ -9,13 +9,11 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import littlepartypro.model.Vendor;
-import littlepartypro.repository.VendorRepository;
 
 @ExtendWith(MockitoExtension.class)
 @SpringBootTest
@@ -34,10 +32,10 @@ public class VendorRepositoryTest {
         );
 
         // Mock behavior
-        when(vendorRepositoryMock.findAllByRequest(request)).thenReturn(mockVendors);
+        when(vendorRepositoryMock.getAllVendorsByRequest(request)).thenReturn(mockVendors);
 
         // Test
-        List<Vendor> foundVendors = vendorRepositoryMock.findAllByRequest(request);
+        List<Vendor> foundVendors = vendorRepositoryMock.getAllVendorsByRequest(request);
         assertEquals(mockVendors.size(), foundVendors.size());
         assertEquals(mockVendors, foundVendors);
     }
@@ -52,10 +50,10 @@ public class VendorRepositoryTest {
         );
 
         // Mock behavior
-        when(vendorRepositoryMock.findAllByVendorType(vendorType)).thenReturn(mockVendors);
+        when(vendorRepositoryMock.getAllVendorsByVendorType(vendorType)).thenReturn(mockVendors);
 
         // Test
-        List<Vendor> foundVendors = vendorRepositoryMock.findAllByVendorType(vendorType);
+        List<Vendor> foundVendors = vendorRepositoryMock.getAllVendorsByVendorType(vendorType);
         assertEquals(mockVendors.size(), foundVendors.size());
         assertEquals(mockVendors, foundVendors);
     }

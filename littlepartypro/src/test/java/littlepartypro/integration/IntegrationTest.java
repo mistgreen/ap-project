@@ -38,12 +38,19 @@ public class IntegrationTest extends BaseIntegrationTest {
     }
 
     @Test
-    void givenVendorsExistInDatabase_whenRequestToGetVendorByType_shouldReturnAllVendorsOfThatType() {
+    void givenVendorsExistInDatabase_whenRequestToGetVendorByValidType_shouldReturnAllVendorsOfThatType() {
         final ResponseEntity<Vendor[]> response = restTemplate.getForEntity(getVendorByTypeURI("VENUE"), Vendor[].class);
         assertEquals(response.getStatusCode(), HttpStatusCode.valueOf(200));
         assertThat(response.getBody()).isNotEmpty();
         assertThat(response.getBody().length).isEqualTo(5);
         Arrays.stream(response.getBody()).forEach(vendor -> assertThat(vendor.vendorTypeId()).isEqualTo(1));
+    }
+
+    @Test
+    void givenVendorsExistInDatabase_whenRequestToGetVendorsByTypeIsInvalid_shouldReturnAnError() {
+        final ResponseEntity<Vendor[]> response = restTemplate.getForEntity(getVendorByTypeURI("Foo"), Vendor[].class);
+        assertEquals(response.getStatusCode(), HttpStatusCode.valueOf(200));
+        assertThat(response.getBody()).isEmpty();
     }
 
 

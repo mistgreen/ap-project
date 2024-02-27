@@ -30,12 +30,12 @@ public class VendorController {
 
     @GetMapping("/filter/vendorType/{vendorType}")
     public List<Vendor> getVendorsByVendorType(@PathVariable String vendorType) {
-        return repository.findAllByVendorType(vendorType);
+        return repository.getAllVendorsByVendorType(vendorType);
     }
 
     @PostMapping("/filter/search")
     public List<Vendor> getVendorBySearchRequest(@RequestBody SearchRequest request) {
         String searchQuery = request.getSearchQuery();
-        return repository.findAllByRequest(searchQuery);
+        return repository.getAllVendorsByRequest(searchQuery);
     }
 }

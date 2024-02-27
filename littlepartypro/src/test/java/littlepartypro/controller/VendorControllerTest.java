@@ -56,7 +56,7 @@ class VendorControllerTest {
         SearchRequest mockedSearch = new SearchRequest("request string");
         vendorController.getVendorBySearchRequest(mockedSearch);
 
-        verify(repository).findAllByRequest("request string");
+        verify(repository).getAllVendorsByRequest("request string");
     }
 
     @Test
