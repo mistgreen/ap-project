@@ -67,10 +67,6 @@ const openRegisterModal = () => {
 }
 
 function performAction(endpoint, username, password) {
-  // const pattern = /([A-Za-z0-9])\w+/;
-  // searchQuery.value = {
-  //   "searchQuery": searchString
-  // };
 
   fetch(`api/auth/${endpoint}`, {
     method: 'POST',
