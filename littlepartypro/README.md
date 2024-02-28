@@ -1,5 +1,8 @@
 # LittlePartyPro
 
+Youtube Link available at:
+https://youtu.be/4cWKigqrl2A?si=yTV3yqKPrXoV3ZU1
+
 ![techstack.png](images%2Ftechstack.png)
 ![architecture.png](images%2Farchitecture.png)
 ![releaseplan.png](images%2Freleaseplan.png)
